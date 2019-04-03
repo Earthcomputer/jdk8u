@@ -316,7 +316,7 @@ else
       (
         if [ "${command}" = "clone" -o "${command}" = "fclone" -o "${command}" = "tclone" ] ; then
           # some form of clone
-          clone_newrepo="$(dirname ${pull_base})/${i}"
+          clone_newrepo="${pull_base}_${i}"
           if ! curl --output /dev/null --silent --head --fail "${clone_newrepo}"; then
             clone_newrepo="${pull_base}/${i}"
             if ! curl --output /dev/null --silent --head --fail "${clone_newrepo}"; then
