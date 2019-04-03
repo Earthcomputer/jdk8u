@@ -316,7 +316,13 @@ else
       (
         if [ "${command}" = "clone" -o "${command}" = "fclone" -o "${command}" = "tclone" ] ; then
           # some form of clone
-          clone_newrepo="${pull_base}/${i}"
+          clone_newrepo="$(dirname ${pull_base})/${i}"
+          if ! curl --output /dev/null --silent --head --fail "${clone_newrepo}"; then
+            clone_newrepo="${pull_base}/${i}"
+            if ! curl --output /dev/null --silent --head --fail "${clone_newrepo}"; then
+              clone_newrepo="http://hg.openjdk.java.net/jdk8u/jdk8u/${i}"
+            fi
+          fi
           parent_path="`dirname ${i}`"
           if [ "${parent_path}" != "." ] ; then
             times=0
